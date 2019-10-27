@@ -8,6 +8,8 @@ Aplikacija je napravljena pomoću ASP.NET MVC arhitekture i služi kao demonstra
 2. Napravite import baze podataka (MS SQL Server Management Studio) na localhostu pomoću već exportirane baze podataka. Datoteka za import nalazi na putanji "AutomatedTellerMachine\DatabaseExport\aspnet-AutomatedTellerMachine-20191012024503.bacpac". Kratak video tutorial (trajanje 2:01 min) koji objašnjava kako importati .bacpac datoteku na vlastitu bazu podataka - https://www.youtube.com/watch?v=wNwjT6XJj2o
 3. Otvorite datoteku "AutomatedTellerMachine.sln"
 4. Pritisnite tipku F5
+5. Registrirajte se i prijavite kao običan korisnik
+ili prijavite se kao administrator sa email-om "m.stjepanovic@protonmail.com" i lozinkom "123456Aa@".
 
 # Korisnički zahtjevi
 
