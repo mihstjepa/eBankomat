@@ -1,0 +1,27 @@
+﻿@model IEnumerable<AutomatedTellerMachine.Models.Transakcija>
+
+@{
+    ViewBag.Title = "IspisTransakcija";
+}
+
+<h2>Ispis transakcija</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Iznos)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Iznos)
+        </td>
+    </tr>
+        
+    }
+
+</table>

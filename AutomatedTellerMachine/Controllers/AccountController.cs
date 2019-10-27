@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AutomatedTellerMachine.Models;
+using AutomatedTellerMachine.Services;
 
 namespace AutomatedTellerMachine.Controllers
 {
@@ -149,24 +150,57 @@ namespace AutomatedTellerMachine.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        // Kreiramo Claim koji sadrži ime korisnika (da ga nemoramo hvatat iz baze uvijek
+                        // dok ga displayamo u headeru stranice na svakom loadu page-a) - Ime se displaya
+                        // u _LoginPartial View-u.
+                        UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, model.Ime));
 
-                    return RedirectToAction("Index", "Home");
+                        // Ako se uspješno provede registracija novog korisnika
+                        // Korisniku se kreira i dodjeljuje novi Tekuci Racun pomoću servisa
+
+                        var service = new TekuciRacunService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+                        service.KreirajTekuciRacun(model.Ime, model.Prezime, user.Id, 0);
+
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
             }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting  
+                        // the current instance as InnerException  
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+
+            
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -374,6 +408,12 @@ namespace AutomatedTellerMachine.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        // Inserta jedan red u AspNet.UserLogins tablicu
+                        // (Asocira Facebookov userId sa našim userId u bazi)
+
+                        var service = new TekuciRacunService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+                        service.KreirajTekuciRacun("Facebook", "Korisnik", user.Id, 500);   // Ko se ulogira sa fejsom, dobije bonus 500$! :)
+
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

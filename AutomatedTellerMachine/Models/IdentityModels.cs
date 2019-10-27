@@ -16,6 +16,9 @@ namespace AutomatedTellerMachine.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public int Pin { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +32,9 @@ namespace AutomatedTellerMachine.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<TekuciRacun> TekuciRacuns { get; set; }
+
+        public DbSet<Transakcija> Transakcije { get; set; }
     }
 }

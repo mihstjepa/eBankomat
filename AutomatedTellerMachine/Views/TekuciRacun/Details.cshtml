@@ -1,0 +1,52 @@
+﻿@model AutomatedTellerMachine.Models.TekuciRacun
+
+@{
+    ViewBag.Title = "Stanje računa";
+}
+
+
+<div class="row">
+    <div class="col-md-6  margin-top-20">
+        <h2>Trenutno stanje</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.IBAN)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IBAN)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Ime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Ime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Prezime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Stanje)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Stanje)
+            </dd>
+
+        </dl>
+    </div>
+    <br />
+    <br />
+    <a href="@Url.Action("List", "TekuciRacun", new { tekuciRacunId = ViewBag.TekuciRacunId})" class="btn btn-info">
+        <span class="glyphicon glyphicon-list"></span>  Pregled svih računa (Admin)
+    </a>
+</div>

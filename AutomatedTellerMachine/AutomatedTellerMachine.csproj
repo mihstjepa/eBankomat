@@ -176,21 +176,39 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TekuciRacunController.cs" />
+    <Compile Include="Controllers\TransakcijaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910131634306_InitialCreate.cs" />
+    <Compile Include="Migrations\201910131634306_InitialCreate.Designer.cs">
+      <DependentUpon>201910131634306_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910131839503_AccountNumberChanges.cs" />
+    <Compile Include="Migrations\201910131839503_AccountNumberChanges.Designer.cs">
+      <DependentUpon>201910131839503_AccountNumberChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TekuciRacun.cs" />
+    <Compile Include="Models\Transakcija.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TekuciRacunService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-darkly.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\favicon2.ico" />
+    <Content Include="Content\Images\logo.jpg" />
+    <Content Include="Content\Images\logo2.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -241,6 +259,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\TekuciRacun\Details.cshtml" />
+    <Content Include="Views\TekuciRacun\Create.cshtml" />
+    <Content Include="Views\Transakcija\Uplata.cshtml" />
+    <Content Include="Views\TekuciRacun\List.cshtml" />
+    <Content Include="Views\Transakcija\Isplata.cshtml" />
+    <Content Include="Views\Transakcija\IspisTransakcija.cshtml" />
+    <Content Include="Views\Transakcija\Prijenos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,6 +282,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201910131634306_InitialCreate.resx">
+      <DependentUpon>201910131634306_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910131839503_AccountNumberChanges.resx">
+      <DependentUpon>201910131839503_AccountNumberChanges.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

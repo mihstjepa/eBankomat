@@ -1,7 +1,59 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Info";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>Korisnički zahtjevi</h2>
+<h3>Kratak opis:</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>Ova jednostavna web aplikacija simulira rad "online" bankomata te 
+    omogućuje korisnicima prikaz stanja računa, prijenos, uplatu i isplatu
+    određenih valuta novca.</p>
+
+<p>Aplikacija je napravljena pomoću ASP.NET MVC arhitekture i služi kao demonstracija 
+    savladanih znanja autora.</p>
+
+<br />
+
+<h3>Uloge korisnika</h3>
+<p>Autentikacija korisnika provjerava se putem dodjeljenih uloga, a svaka ima određene ovlasti
+    u smislu razine pristupa. Administrator ima sva prava kao i Običan član, uz određene dodatne
+    ovlasti.</p>
+<ul>
+    <li>Administrator</li>
+    <ol>
+        <li>Pregled ukupnih transakcija svih korisnika</li>
+        <li>Pregled stanja tekućih računa korisnika</li>
+    </ol>
+    <br />
+    <li>Običan korisnik</li>
+    <ol>
+        <li>Uplata novca na tekući račun</li>
+        <li>Isplata novca na tekući račun</li>
+        <li>Brza isplata ($100)</li>
+        <li>Ispis vlastitih transakcija</li>
+        <li>Pregled stanja vlastitog tekućeg računa</li>
+        <li>Prijenos (slanje) novca na tuđi račun</li>
+    </ol>
+</ul>
+
+<br />
+
+<h3>Korištene tehnologije/alati</h3>
+<ul>
+    <li>Visual Studio 2017</li>
+    <li>C#</li>
+    <li>ASP.NET MVC5</li>
+    <li>SQL Server Management Studio</li>
+    <li>Bootstrap</li>
+    <li>Entity Framework</li>
+    <li>HTML5, CSS3</li>
+</ul>
+
+<br />
+<h3>ERA model</h3>
+<div class="row">
+    <div class="col-md-12">
+        <br />
+        <br />
+        <img src="~/Content/ERAmodel.png" class="img-responsive block" />
+    </div>
+</div>
