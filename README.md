@@ -9,7 +9,7 @@ Aplikacija je napravljena pomoću ASP.NET MVC arhitekture i služi kao demonstra
 3. Otvorite datoteku "AutomatedTellerMachine.sln"
 4. Pritisnite tipku F5
 5. Registrirajte se i prijavite kao običan korisnik
-ili prijavite se kao administrator sa email-om "m.stjepanovic@protonmail.com" i lozinkom "123456Aa@".
+ili prijavite se kao administrator sa email-om "admin@gmail.com" i lozinkom "123456Aa@".
 
 # Korisnički zahtjevi
 
